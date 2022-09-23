@@ -28,8 +28,8 @@ static void getRandomQuestion()
     
     if (response != choice)
     {
-        if (choice != "either") incorrectChoice(choice, response);
-        else correctChoice(choice, response);
+        if (choice == "either") correctChoice(choice, response);
+        else incorrectChoice(choice, response);
     }
     else correctChoice(choice, response);
 }
@@ -42,7 +42,7 @@ static string getResponse()
 
     bool isIncorrect = response != "yes" && response != "no";
     
-    while (isIncorrect)
+    if (isIncorrect)
     {
         Console.WriteLine("Invalid Answer! Try again:");
         getResponse();
@@ -55,7 +55,8 @@ static void incorrectChoice(string choice, string response)
 {
     Globals.roundsLasted++;
     Console.Clear();
-    Console.WriteLine($"Game Over! Looks like you're dead.\n\nYou lasted for {Globals.roundsLasted} rounds!");
+    string ltr = Globals.roundsLasted > 1 ? "s" : "";
+    Console.WriteLine($"Game Over! Looks like you're dead.\n\nYou lasted for {Globals.roundsLasted} round{ltr}!");
 }
 
 static void correctChoice(string choice, string response)
